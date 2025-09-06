@@ -32,7 +32,7 @@ ENV SPRING_MAIL_USERNAME="chotabheemdholakpurwala@gmail.com"
 ENV SPRING_MAIL_PASSWORD="ijtvmcdpdrvvlrun"
 ENV SPRING_REDIS_HOST="redis-13017.c305.ap-south-1-1.ec2.redns.redis-cloud.com"
 ENV SPRING_REDIS_PORT=13017
-ENV SPRING_REDIS_PASSWORD=
+ENV SPRING_REDIS_PASSWORD="qaWUX9eWWGv4isZCwW0m01aialdnJriX"
 
 # Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
