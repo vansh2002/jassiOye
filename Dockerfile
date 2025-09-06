@@ -30,6 +30,9 @@ ENV YOUTUBE_API_KEY="AIzaSyDcOSEhx8LpaG0MhheUC6EDY-bA3Tpp_nA"
 # ENV TWILIO_PHONE_NUMBER="+17154849490"
 ENV SPRING_MAIL_USERNAME="chotabheemdholakpurwala@gmail.com"
 ENV SPRING_MAIL_PASSWORD="ijtvmcdpdrvvlrun"
+ENV SPRING_REDIS_HOST="redis-13017.c305.ap-south-1-1.ec2.redns.redis-cloud.com"
+ENV SPRING_REDIS_PORT=13017
+ENV SPRING_REDIS_PASSWORD=
 
 # Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
