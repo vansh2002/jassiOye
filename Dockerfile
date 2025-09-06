@@ -27,5 +27,12 @@ EXPOSE 8080
 # REMOVED: All ENV variables with secrets are gone.
 # They will be provided by the deployment platform (e.g., Render).
 
+ENV YOUTUBE_API_KEY=AIzaSyDcOSEhx8LpaG0MhheUC6EDY-bA3Tpp_nA
+ENV SPRING_MAIL_USERNAME=chotabheemdholakpurwala@gmail.com
+ENV SPRING_MAIL_PASSWORD=ijtvmcdpdrvvlrun
+ENV SPRING_REDIS_HOST=redis-13017.c305.ap-south-1-1.ec2.redns.redis-cloud.com
+ENV SPRING_REDIS_PORT=13017
+ENV SPRING_REDIS_PASSWORD=qaWUX9eWWGv4isZCwW0m01aialdnJriX
+
 # Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
