@@ -23,24 +23,29 @@ public class HeartbeatService {
 
     @Scheduled(fixedRate = 5000)
     public void checkForStaleUsers() {
-        System.out.println("Running stale user check...");
-        Set<String> onlineUsers = redisTemplate.opsForSet().members(ONLINE_USERS_KEY);
-        if (onlineUsers == null || onlineUsers.isEmpty()) {
-            return;
-        }
-
-        for (String username : onlineUsers) {
-            Boolean hasHeartbeat = redisTemplate.hasKey(HEARTBEAT_KEY_PREFIX + username);
-
-            if (hasHeartbeat == null || !hasHeartbeat) {
-                System.out.println("Stale user detected (no heartbeat): " + username + ". Disconnecting.");
-                String sessionId = (String) redisTemplate.opsForHash().get(USER_SESSIONS_KEY, username);
-                if (sessionId != null) {
-                    webSocketController.handleUserDisconnect(sessionId);
-                } else {
-                    redisTemplate.opsForSet().remove(ONLINE_USERS_KEY, username);
+        try {
+            System.out.println("Running stale user check...");
+            Set<String> onlineUsers = redisTemplate.opsForSet().members(ONLINE_USERS_KEY);
+            if (onlineUsers == null || onlineUsers.isEmpty()) {
+                return;
+            }
+    
+            for (String username : onlineUsers) {
+                Boolean hasHeartbeat = redisTemplate.hasKey(HEARTBEAT_KEY_PREFIX + username);
+    
+                if (hasHeartbeat == null || !hasHeartbeat) {
+                    System.out.println("Stale user detected (no heartbeat): " + username + ". Disconnecting.");
+                    String sessionId = (String) redisTemplate.opsForHash().get(USER_SESSIONS_KEY, username);
+                    if (sessionId != null) {
+                        webSocketController.handleUserDisconnect(sessionId);
+                    } else {
+                        redisTemplate.opsForSet().remove(ONLINE_USERS_KEY, username);
+                    }
                 }
             }
+        } catch(Exception e) {
+            System.err.println("Scheduled task failed: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
